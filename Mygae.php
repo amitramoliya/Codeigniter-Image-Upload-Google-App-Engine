@@ -51,9 +51,14 @@ class Mygae {
     }
 
 
-     public function get_gae_file_view_url($file_name){
+     public function get_gae_file_view_url($file_name,$directory_path_url=''){
 
-    	$object_image_file = 'gs://'.$this->bucket_name.'/'.$file_name;
+		if(isset($directory_path_url) && $directory_path_url!=''){
+			$object_image_file = 'gs://'.$this->bucket_name.'/'.$directory_path_url.$file_name;	
+		}else{
+			$object_image_file = 'gs://'.$this->bucket_name.'/'.$file_name;	
+		}
+    		
 		$object_image_url = CloudStorageTools::getImageServingUrl($object_image_file,
 	                                            ['size' => 0, 'crop' => false]);
 		return $object_image_url;
